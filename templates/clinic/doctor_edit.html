@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Edit Doctor | Clinic Management System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <!-- Breadcrumb -->
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'doctor_list' %}">Doctors</a></li>
+                    <li class="breadcrumb-item active">Edit Doctor</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Edit Doctor</h4>
+        </div>
+
+        <div class="card-box">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>First Name</label>
+                        <input type="text" name="first_name" class="form-control" value="{{ doctor.first_name }}" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Last Name</label>
+                        <input type="text" name="last_name" class="form-control" value="{{ doctor.last_name }}" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Specialization</label>
+                        <input type="text" name="specialization" class="form-control" value="{{ doctor.specialization }}" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Mobile Number</label>
+                        <input type="text" name="mobile_number" class="form-control" value="{{ doctor.mobile_number }}" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" class="form-control" value="{{ doctor.email }}">
+                </div>
+
+                <div class="form-group">
+                    <label>Address</label>
+                    <textarea name="address" class="form-control" rows="3">{{ doctor.address }}</textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Date of Birth</label>
+                        <input type="date" name="dob" class="form-control" value="{{ doctor.dob|default_if_none:'' }}">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Gender</label>
+                        <select name="gender" class="form-control">
+                            <option value="">Select Gender</option>
+                            <option value="Male" {% if doctor.gender == "Male" %}selected{% endif %}>Male</option>
+                            <option value="Female" {% if doctor.gender == "Female" %}selected{% endif %}>Female</option>
+                            <option value="Other" {% if doctor.gender == "Other" %}selected{% endif %}>Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Experience (years)</label>
+                        <input type="number" name="experience" class="form-control" value="{{ doctor.experience }}">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Licence Number</label>
+                        <input type="text" name="licence_number" class="form-control" value="{{ doctor.licence_number }}">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Doctor Visit Fees</label>
+                        <input type="number" name="doctor_visit_fees" class="form-control" value="{{ doctor.doctor_visit_fees }}">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Status</label>
+                        <select name="status" class="form-control">
+                            <option value="">Select Status</option>
+                            <option value="Active" {% if doctor.status == "Active" %}selected{% endif %}>Active</option>
+                            <option value="Deactivated" {% if doctor.status == "Deactivated" %}selected{% endif %}>Deactivated</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Profile Image</label>
+                    {% if doctor.profile_image %}
+                        <img src="{{ doctor.profile_image.url }}" class="rounded-circle mb-2" width="60" height="60">
+                    {% endif %}
+                    <input type="file" name="profile_image" class="form-control-file">
+                </div>
+
+                <button type="submit" class="btn btn-info">Update Doctor</button>
+                <a href="{% url 'doctor_list' %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

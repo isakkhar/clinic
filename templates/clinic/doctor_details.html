@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Doctor Details | Clinic Management System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <!-- Breadcrumb -->
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'doctor_list' %}">Doctors</a></li>
+                    <li class="breadcrumb-item active">{{ doctor.first_name }} {{ doctor.last_name }}</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Doctor Details</h4>
+        </div>
+
+        <div class="card-box">
+            <div class="text-center mb-3">
+                {% if doctor.profile_image %}
+                    <img src="{{ doctor.profile_image.url }}" class="rounded-circle" width="120" height="120">
+                {% else %}
+                    <img src="{% static 'assets/images/users/avatar-1.jpg' %}" class="rounded-circle" width="120" height="120">
+                {% endif %}
+            </div>
+
+            <table class="table table-bordered">
+                <tr>
+                    <th>Doctor ID</th>
+                    <td>{{ doctor.doctor_id }}</td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td>{{ doctor.first_name }} {{ doctor.last_name }}</td>
+                </tr>
+                <tr>
+                    <th>Specialization</th>
+                    <td>{{ doctor.specialization }}</td>
+                </tr>
+                <tr>
+                    <th>Phone</th>
+                    <td>{{ doctor.mobile_number }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ doctor.email }}</td>
+                </tr>
+                <tr>
+                    <th>Gender</th>
+                    <td>{{ doctor.gender }}</td>
+                </tr>
+                <tr>
+                    <th>Date of Birth</th>
+                    <td>{{ doctor.dob }}</td>
+                </tr>
+                <tr>
+                    <th>Experience</th>
+                    <td>{{ doctor.experience }} yrs</td>
+                </tr>
+                <tr>
+                    <th>Licence Number</th>
+                    <td>{{ doctor.licence_number }}</td>
+                </tr>
+                <tr>
+                    <th>Visit Fees</th>
+                    <td>{{ doctor.doctor_visit_fees }}</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>{{ doctor.status }}</td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>{{ doctor.address }}</td>
+                </tr>
+                <tr>
+                    <th>Created At</th>
+                    <td>{{ doctor.created_at }}</td>
+                </tr>
+            </table>
+
+            <div class="text-right">
+                <a href="{% url 'doctor_list' %}" class="btn btn-secondary">Back to List</a>
+                <a href="{% url 'doctor_edit' doctor.doctor_id %}" class="btn btn-info">Edit Doctor</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | Clinic Management System{% endblock %}
+
+{% block content %}
+    <h4 class="page-title">Dashboard</h4>
+    <p>Welcome, {{ request.user.get_full_name|default:request.user.username }}!</p>
+
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="card-box">
+                <h4>Total Patients</h4>
+                <p>{{ total_patients }}</p>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card-box">
+                <h4>Total Doctors</h4>
+                <p>{{ total_doctors }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
